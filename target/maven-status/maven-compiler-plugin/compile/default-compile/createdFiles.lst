@@ -1,0 +1,6 @@
+com\yanping\manydb\manydb\config\BaseMyBatisConfig.class
+com\yanping\manydb\manydb\base\service\DepartService.class
+com\yanping\manydb\manydb\base\dao\DepartDao.class
+com\yanping\manydb\manydb\base\entity\Depart.class
+com\yanping\manydb\manydb\ManydbApplication.class
+com\yanping\manydb\manydb\base\rest\DepartController.class

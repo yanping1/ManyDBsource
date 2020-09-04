@@ -1,0 +1,98 @@
+logging:
+  level:
+    #        tk.mybatis: DEBUG
+    com.mht.lark.dsp: DEBUG
+#金智对接需要的配置信息
+app:
+  redirect:
+    cache-seconds: 60 #跳转oauth时认证信息在redis中缓存时间（秒），及跳转过程必须在60秒内完成
+    urls:
+      default: ${app.redirect.urls.rsp-ui} #默认cas登录成功后要跳转的oauth地址
+      admin-ui: http://da.scu.edu.cn:18443/admin
+      rsp-ui: http://da.scu.edu.cn:18443/dspcas
+    host:
+      url: http://da.scu.edu.cn:${server.port}/sun/cas #本应用访问地址
+    jzcas:
+#      properties: /root/lark/client.properties #金智cas配置文件地址
+      properties: /client.properties #金智cas配置文件地址
+
+
+server:
+  port: 9956
+  undertow:
+    max-http-post-size: 0
+    # 设置IO线程数, 它主要执行非阻塞的任务,它们会负责多个连接, 默认设置每个CPU核心一个线程
+    io-threads: 4
+    # 阻塞任务线程池, 当执行类似servlet请求阻塞操作, undertow会从这个线程池中取得线程,它的值设置取决于系统的负载
+    worker-threads: 20
+    # 以下的配置会影响buffer,这些buffer会用于服务器连接的IO操作,有点类似netty的池化内存管理
+    # 每块buffer的空间大小,越小的空间被利用越充分
+    buffer-size: 1024
+    # 是否分配的直接内存
+    direct-buffers: true
+spring:
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: NON_NULL
+  datasource:
+    base:
+      jdbc-url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF8&useSSL=true&serverTimezone=GMT
+      username: root
+      password: root123
+      # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      druid:
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    test:
+      jdbc-url: jdbc:mysql://localhost:3306/testb?useUnicode=true&characterEncoding=UTF8&useSSL=true&serverTimezone=GMT
+      username: root
+      password: root123
+      # 使用druid数据源
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      druid:
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+
+    schema-password:
+
+# 配置数据库
+mybatis:
+  mapper-locations: "classpath*:mapper/*.xml"
+
+# 配置swagger
+swagger:
+  max-page-size: 10000 #接口分页每页最大数量
+  min-page-size: 10 #接口分页每页最小数量
+  base-package: com.yanping.manydb.manydb
+  title: lark-manydb
+  version: 1.0.0.SNAPSHOT
+  description: 数据共享服务
+  contact:
+    name: admin
