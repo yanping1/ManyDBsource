@@ -36,5 +36,9 @@
         </foreach>
     </insert>
 
+    <select id="list" resultType="java.util.LinkedHashMap">
+        select ${keys} from user
+    </select>
+
 </mapper>
 
